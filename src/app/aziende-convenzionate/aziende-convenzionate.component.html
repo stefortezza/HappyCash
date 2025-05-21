@@ -1,0 +1,42 @@
+<div class="container mt-5 aziende-wrapper">
+  <h2 class="text-center mb-4">Aziende Convenzionate</h2>
+
+  <div class="toggle-buttons mb-4 text-center">
+    <a class="btn btn-outline-dark" id="home" routerLink="/">🏠 Home</a>
+    <button class="btn btn-outline-primary me-2" [class.active]="showList" (click)="toggleView(true)">
+      📄 Lista
+    </button>
+    <button class="btn btn-outline-success" [class.active]="!showList" (click)="toggleView(false)">
+      🗺️ Mappa
+    </button>
+  </div>
+
+  <div *ngIf="showList" class="mb-3">
+    <input type="text" class="form-control" [(ngModel)]="searchTerm" placeholder="Cerca per Comune">
+  </div>
+
+  <div class="row" *ngIf="showList">
+    <div class="col-md-4" *ngFor="let business of filteredBusinesses()">
+      <div class="card company-card mb-3">
+        <div class="card-body">
+          <h5 class="card-title">{{ business.ragioneSociale }}</h5>
+          <p class="card-text">
+            <strong>Categoria:</strong> {{ business.categoria }}<br>
+            <strong>Comune:</strong> {{ business.comune }}<br>
+            <strong>Indirizzo:</strong> {{ business.indirizzo }}<br>
+            <strong>Servizio Offerto:</strong> {{ business.servizioOfferto }}<br>
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!showList">
+    <div class="mb-3">
+      <input type="text" class="form-control" placeholder="Cerca un comune..." [(ngModel)]="searchedComune"
+        (keydown.enter)="zoomToComune()">
+    </div>
+
+    <div id="map" style="height: 600px; width: 100%;"></div>
+  </div>
+</div>

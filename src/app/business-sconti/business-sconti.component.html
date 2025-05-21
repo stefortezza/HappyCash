@@ -1,0 +1,74 @@
+<div class="container mt-4">
+  <h2 class="mb-4 text-center">📋 Sconti Applicati</h2>
+
+  <div class="row mb-3">
+    <div class="col-md-4">
+      <label for="dataInizio">Data Inizio:</label>
+      <input
+        type="date"
+        id="dataInizio"
+        class="form-control"
+        [(ngModel)]="dataInizio"
+        (change)="filtraScontiPerIntervallo()"
+      />
+    </div>
+    <div class="col-md-4">
+      <label for="dataFine">Data Fine:</label>
+      <input
+        type="date"
+        id="dataFine"
+        class="form-control"
+        [(ngModel)]="dataFine"
+        (change)="filtraScontiPerIntervallo()"
+      />
+    </div>
+    <div class="col-md-4 d-flex align-items-end justify-content-end gap-2">
+      <button
+        class="btn btn-success"
+        (click)="exportToExcel()"
+        [disabled]="scontiFiltrati.length === 0"
+      >
+        📥 Esporta in Excel
+      </button>
+      <button
+        class="btn btn-primary"
+        (click)="stampaSconti()"
+        [disabled]="scontiFiltrati.length === 0"
+      >
+        🖨️ Stampa
+      </button>
+    </div>
+  </div>
+
+  <div id="print-section">
+    <table
+      class="table table-bordered table-striped"
+      *ngIf="scontiFiltrati.length > 0"
+    >
+      <thead class="table-light">
+        <tr>
+          <th>Nome</th>
+          <th>Cognome</th>
+          <th>Data/Ora</th>
+          <th>Codice Fidelity</th>
+          <th>Offerta</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let sconto of scontiFiltrati">
+          <td>{{ sconto.nome }}</td>
+          <td>{{ sconto.cognome }}</td>
+          <td>{{ sconto.dataOra | date: 'dd/MM/yyyy HH:mm:ss' }}</td>
+          <td>{{ sconto.codiceFidelity }}</td>
+          <td>{{ sconto.offerta }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div *ngIf="scontiFiltrati.length === 0" class="alert alert-info text-center">
+      Nessuno sconto applicato per il mese selezionato.
+    </div>
+  </div>
+
+  <a class="btn btn-outline-dark ms-auto" routerLink="/">🏠 Home</a>
+</div>

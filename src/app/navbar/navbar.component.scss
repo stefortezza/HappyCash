@@ -1,0 +1,94 @@
+.custom-navbar {
+  background-color: #f8f9fa;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05); // ombra dall'alto
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+
+  .navbar-brand {
+    font-weight: 600;
+    font-size: 1.25rem;
+    color: #2c3e50;
+    text-decoration: none;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  .nav-link {
+    font-weight: 500;
+    margin-right: 20px;
+    color: #333;
+    text-decoration: none;
+    transition: color 0.3s ease;
+
+    &:hover {
+      color: #0056b3;
+    }
+  }
+
+  .btn {
+    font-size: 14px;
+    padding: 6px 14px;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+
+    &.btn-outline-primary {
+      border-color: #007bff;
+      color: #007bff;
+
+      &:hover {
+        background-color: #007bff;
+        color: white;
+      }
+    }
+
+    &.btn-outline-success {
+      border-color: #28a745;
+      color: #28a745;
+
+      &:hover {
+        background-color: #28a745;
+        color: white;
+      }
+    }
+  }
+
+  .navbar-right {
+    display: flex;
+    align-items: center;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    .navbar-right {
+      margin-top: 10px;
+      flex-direction: column;
+      width: 100%;
+
+      .btn {
+        width: 100%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .nav-link {
+      margin-bottom: 10px;
+  
+    }
+  }
+
+  #home{
+    color: red;
+  }
+}

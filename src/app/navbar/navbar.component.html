@@ -1,0 +1,65 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
+  <div class="container-fluid">
+    <a class="navbar-brand" (click)="navigateByRole()">FidelityCard</a>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <ng-container *ngIf="isAuthenticated">
+          <!-- Solo admin -->
+          <li class="nav-item" *ngIf="isAdmin">
+            <a class="nav-link w-100" id="home" routerLink="/admin-dashboard">🏠 Home</a>
+          </li>
+          <li class="nav-item" *ngIf="isAdmin">
+            <a class="nav-link" routerLink="/add-business">Aggiungi Azienda</a>
+          </li>
+          <li class="nav-item" *ngIf="isAdmin">
+            <a class="nav-link" routerLink="/admin-send-notification">Invia Notifiche</a>
+          </li>
+        </ng-container>
+        <!-- Icona Profilo  -->
+        <li class="nav-item dropdown" *ngIf="isAuthenticated">
+          <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
+            aria-expanded="false">
+            <img src="favicon.ico" alt="profilo" width="30" class="me-2" />
+            Profilo
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
+            <li><a class="dropdown-item" routerLink="/profilo">I tuoi dati</a></li>
+
+            <li *ngIf="!isBusiness">
+              <a class="dropdown-item" routerLink="/aziende">Aziende convenzionate</a>
+            </li>
+            <li *ngIf="isBusiness">
+              <a class="dropdown-item" routerLink="/sconti">Sconti Applicati</a>
+            </li>
+            <li class="nav-item" *ngIf="isAdmin">
+              <button class="btn btn-outline-primary ms-2" (click)="openRegisterModal()">Registra Utente</button>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+            <li><button class="dropdown-item text-danger" (click)="logout()">Logout</button></li>
+          </ul>
+        </li>
+
+      </ul>
+
+    </div>
+  </div>
+</nav>
+
+
+<!-- MODALE REGISTRAZIONE ADMIN -->
+<div class="modal fade" id="adminRegisterModal" tabindex="-1" aria-labelledby="adminRegisterModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content p-4">
+      <div class="modal-header">
+        <h5 class="modal-title" id="adminRegisterModalLabel">Registrazione Utente</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Chiudi"></button>
+      </div>
+      <div class="modal-body">
+        <app-register *ngIf="showRegisterComponentFromModal" [isFromModal]="true"></app-register>
+      </div>
+    </div>
+  </div>
+</div>

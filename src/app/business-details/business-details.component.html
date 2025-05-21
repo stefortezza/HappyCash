@@ -1,0 +1,43 @@
+<div class="container mt-5" *ngIf="business">
+  <h3>Benvenuto, {{ business.ragioneSociale }}</h3>
+
+  <div class="mb-4 mt-4">
+    <label class="form-label">🎁 Offerta Attuale</label>
+    <div class="border rounded p-3 bg-light text-dark">
+      {{ business.servizioOfferto || 'Nessuna offerta disponibile' }}
+    </div>
+  </div>
+
+  <div class="mt-4">
+    <label for="searchInput">🔍 Cerca Fidelity Card</label>
+    <input
+      id="searchInput"
+      [(ngModel)]="searchInput"
+      name="searchInput"
+      class="form-control"
+      placeholder="Codice Univoco o Numero di Telefono"
+      (keyup.enter)="searchCardUnified()"
+    />
+
+    <div *ngIf="cardFound" class="alert alert-success mt-3 d-flex justify-content-between align-items-center">
+      <div>
+        <strong>Fidelity Card trovata!</strong><br />
+        👤 Utente: <strong>{{ userName }} {{ userSurname }}</strong><br />
+        🔐 Codice Card: <strong>{{ fidelityCode }}</strong>
+      </div>
+      <button class="btn btn-success btn-sm" (click)="applicaSconto()">Applica sconto</button>
+    </div>
+
+    <div *ngIf="cardNotFound" class="alert alert-danger mt-3">
+      ❌ Fidelity Card non trovata.
+    </div>
+  </div>
+</div>
+
+  
+
+  <!-- <div class="mt-4">
+    <a routerLink="/sconti" class="btn btn-outline-primary">📄 Visualizza tutti gli sconti applicati</a>
+  </div> -->
+
+  <!-- <button class="btn btn-outline-danger mt-4" (click)="logout()">Logout</button> -->

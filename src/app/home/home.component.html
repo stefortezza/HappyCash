@@ -1,0 +1,41 @@
+<div class="form-wrapper">
+  <div class="left">
+    <div>
+      <p>Benvenuto!</p>
+      <a href="#" (click)="toggleView()">
+        {{ isLoginView ? 'Non hai un account?' : 'Hai già un account?' }}
+      </a>
+      <input type="button" [value]="isLoginView ? 'Registrati' : 'Accedi'" (click)="toggleView()" />
+    </div>
+  </div>
+
+  <div class="right">
+    <div *ngIf="isLoginView; else registerView">
+      <form (ngSubmit)="login()" #loginForm="ngForm">
+        <div class="mb-3 ">
+          <label for="identifier" class="form-label">Email o Username</label>
+          <input type="text" class="form-control" id="identifier" name="identifier" [(ngModel)]="identifier" required>
+        </div>
+
+        <div class="mb-3">
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Accedi</button>
+
+        <div class="text-end mt-2">
+          <a class="text-primary" routerLink="/recover">Password dimenticata?</a>
+        </div>
+
+        <div *ngIf="errorMessage" class="alert alert-danger mt-2">
+          {{ errorMessage }}
+        </div>
+      </form>
+    </div>
+
+    <ng-template #registerView>
+      <app-register></app-register>
+    </ng-template>
+  </div>
+</div>

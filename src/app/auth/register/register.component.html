@@ -1,0 +1,90 @@
+<div class="container text-center mt-5">
+  <h1>{{ editMode ? 'Modifica Utente' : 'Registrati' }}</h1>
+</div>
+
+<div class="container">
+  <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
+    <div class="form-group">
+      <label for="name">Nome</label>
+      <input type="text" id="name" name="name" class="form-control" [(ngModel)]="registerData.name" [required]="!editMode" />
+    </div>
+
+    <div class="form-group">
+      <label for="surname">Cognome</label>
+      <input type="text" id="surname" name="surname" class="form-control" [(ngModel)]="registerData.surname" [required]="!editMode" />
+    </div>
+
+    <div class="form-group">
+      <label for="username">Username</label>
+      <input type="text" id="username" name="username" class="form-control" [(ngModel)]="registerData.username" [required]="!editMode" />
+    </div>
+
+    <div class="form-group">
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" class="form-control" [(ngModel)]="registerData.email" [required]="!editMode" />
+    </div>
+
+    <!-- Password -->
+    <div class="form-group position-relative">
+      <label for="password">Password</label>
+      <input [type]="showPassword ? 'text' : 'password'" id="password" name="password" class="form-control"
+        [(ngModel)]="registerData.password" [required]="!editMode" />
+      <i class="fa fa-eye toggle-password" (click)="togglePassword()" [class.fa-eye-slash]="showPassword"></i>
+    </div>
+
+    <!-- Conferma Password -->
+    <div class="form-group position-relative">
+      <label for="confirmPassword">Conferma Password</label>
+      <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" class="form-control"
+        [(ngModel)]="confirmPassword" [required]="!editMode" />
+      <i class="fa fa-eye toggle-password" (click)="toggleConfirmPassword()" [class.fa-eye-slash]="showConfirmPassword"></i>
+    </div>
+
+    <div class="form-group">
+      <label for="cellulare">Cellulare</label>
+      <input type="text" class="form-control" name="cellulare" [(ngModel)]="registerData.telefono" [required]="!editMode" />
+    </div>
+
+    <div class="form-group">
+      <label for="codiceFiscale">Codice Fiscale</label>
+      <input type="text" class="form-control" name="codiceFiscale" [(ngModel)]="registerData.codiceFiscale" [required]="!editMode" />
+    </div>
+
+    <div class="form-group">
+      <label for="codiceFiscale">Comune</label>
+      <input type="text" class="form-control" name="comune" [(ngModel)]="registerData.comune" [required]="!editMode" />
+    </div>
+
+    <!-- Consensi -->
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" name="consensoPrivacy"
+        [(ngModel)]="registerData.consensoPrivacy" [required]="!editMode" />
+      <label class="form-check-label">Acconsento al trattamento dei dati personali (Privacy)</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" name="terminiCondizioni"
+        [(ngModel)]="registerData.terminiCondizioni" [required]="!editMode" />
+      <label class="form-check-label">Accetto i termini e condizioni</label>
+    </div>
+
+    <div class="form-check">
+      <input type="checkbox" class="form-check-input" name="marketing"
+        [(ngModel)]="registerData.marketing" />
+      <label class="form-check-label">Acconsento a ricevere comunicazioni marketing</label>
+    </div>
+
+    <!-- Se l'admin sta registrando da modale -->
+    <div class="form-group" *ngIf="isFromModal">
+      <label for="role" class="form-label">Ruolo</label>
+      <select id="role" name="role" class="form-control" [(ngModel)]="registerData.role" [required]="!editMode">
+        <option value="USER">USER</option>
+        <option value="ADMIN">ADMIN</option>
+      </select>
+    </div>
+
+    <button type="submit" [disabled]="signupForm.invalid && !editMode" class="btn btn-primary mt-3">
+      {{ editMode ? 'Salva modifiche' : 'Registrati' }}
+    </button>
+  </form>
+</div>

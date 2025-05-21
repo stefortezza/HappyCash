@@ -1,0 +1,147 @@
+<div class="container mt-5">
+  <h2 class="text-center mb-4">I Tuoi Dati</h2>
+
+  <div *ngIf="!userData && !isBusinessLogged" class="alert alert-warning text-center">
+    ⚠️ Nessun dato utente disponibile. Assicurati di essere autenticato correttamente.
+  </div>
+
+  <!-- FORM UTENTE -->
+  <form *ngIf="userData && !isBusinessLogged" (ngSubmit)="saveChanges()" #form="ngForm">
+    <div class="row">
+      <div class="col-md-6">
+        <label>Nome</label>
+        <input type="text" class="form-control" [(ngModel)]="userData.name" name="name" [readonly]="!editMode" />
+      </div>
+      <div class="col-md-6">
+        <label>Cognome</label>
+        <input type="text" class="form-control" [(ngModel)]="userData.surname" name="surname" [readonly]="!editMode" />
+      </div>
+      <div class="col-md-6">
+        <label>Username</label>
+        <input type="text" class="form-control" [(ngModel)]="userData.username" name="username"
+          [readonly]="!editMode" />
+      </div>
+      <div class="col-md-6">
+        <label>Email</label>
+        <input type="email" class="form-control" [(ngModel)]="userData.email" name="email" [readonly]="!editMode" />
+      </div>
+      <div class="col-md-6">
+        <label>Telefono</label>
+        <input type="text" class="form-control" [(ngModel)]="userData.telefono" name="telefono"
+          [readonly]="!editMode" />
+      </div>
+      <div class="col-md-6">
+        <label>Codice Fiscale</label>
+        <input type="text" class="form-control" [(ngModel)]="userData.codiceFiscale" name="codiceFiscale"
+          [readonly]="!editMode" />
+      </div>
+      <div class="col-md-6">
+        <label>Nuova Password (opzionale)</label>
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="userData.password"
+            name="password" [readonly]="!editMode" [value]="editMode ? '' : null" />
+          <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+      </div>
+      <div class="col-md-6" *ngIf="editMode">
+        <label>Conferma Nuova Password</label>
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="confirmPassword"
+            name="confirmPasswordUtente" />
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-3 d-flex gap-2">
+      <button type="button" class="btn btn-secondary" *ngIf="!editMode" (click)="toggleEdit()">✏️ Modifica</button>
+      <button type="submit" class="btn btn-primary" *ngIf="editMode">💾 Salva</button>
+      <a class="btn btn-outline-dark ms-auto" routerLink="/">🏠 Home</a>
+    </div>
+
+  </form>
+</div>
+
+
+
+<!-- FORM AZIENDA -->
+<form *ngIf="business && isBusinessLogged" (ngSubmit)="saveChanges()" #formBusiness="ngForm">
+  <div class="row">
+    <div class="col-md-6">
+      <label>Ragione Sociale</label>
+      <input type="text" class="form-control" [(ngModel)]="business.ragioneSociale" name="ragioneSociale"
+        [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Nome Referente</label>
+      <input type="text" class="form-control" [(ngModel)]="business.nomeReferente" name="nomeReferente"
+        [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Cognome Referente</label>
+      <input type="text" class="form-control" [(ngModel)]="business.cognomeReferente" name="cognomeReferente"
+        [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Telefono</label>
+      <input type="text" class="form-control" [(ngModel)]="business.telefono" name="telefono" [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Email</label>
+      <input type="email" class="form-control" [(ngModel)]="business.email" name="email" [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Partita IVA</label>
+      <input type="text" class="form-control" [(ngModel)]="business.partitaIva" name="partitaIva"
+        [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Comune</label>
+      <input type="text" class="form-control" [(ngModel)]="business.comune" name="comune" [readonly]="!editMode"
+        (input)="editMode ? searchAddress() : null" />
+    </div>
+    <div class="col-md-6 position-relative">
+      <label>Indirizzo</label>
+      <input type="text" class="form-control" [(ngModel)]="business.indirizzo" name="indirizzo" [readonly]="!editMode"
+        (input)="editMode ? searchAddress() : null" autocomplete="off" />
+      <ul *ngIf="editMode && suggestions.length > 0" class="list-group position-absolute w-100 shadow"
+        style="max-height: 200px; overflow-y: auto; z-index: 1000;">
+        <li class="list-group-item list-group-item-action" *ngFor="let suggestion of suggestions"
+          (click)="selectAddress(suggestion)">
+          {{ suggestion.place_name }}
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-6">
+      <label>Username Azienda</label>
+      <input type="text" class="form-control" [(ngModel)]="business.username" name="username" [readonly]="!editMode" />
+    </div>
+    <div class="col-md-6">
+      <label>Nuova Password (opzionale)</label>
+      <div class="input-group">
+        <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="business.password"
+          name="password" [readonly]="!editMode" />
+        <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">
+          <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+        </button>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="editMode">
+      <label>Conferma Nuova Password</label>
+      <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="confirmPassword"
+        name="confirmPassword" />
+    </div>
+    <div class="col-md-6">
+      <label>Servizio Offerto</label>
+      <input type="text" class="form-control" [(ngModel)]="business.servizioOfferto" name="servizioOfferto"
+        [readonly]="!isAdmin || !editMode" />
+    </div>
+  </div>
+  <div class="mt-3 d-flex gap-2">
+    <button type="button" class="btn btn-secondary" *ngIf="!editMode" (click)="toggleEdit()">✏️ Modifica</button>
+    <button type="submit" class="btn btn-primary" *ngIf="editMode">💾 Salva</button>
+    <a class="btn btn-outline-dark ms-auto" routerLink="/">🏠 Home</a>
+  </div>
+
+</form>

@@ -1,0 +1,18 @@
+<div class="business-list">
+    <h2>Lista delle Aziende</h2>
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Ragione Sociale</th>
+        <th>Indirizzo</th>
+        <th>Email</th>
+      </tr>
+      <tr *ngFor="let business of businesses">
+        <td>{{ business.id }}</td>
+        <td>{{ business.ragioneSociale }}</td>
+        <td>{{ business.indirizzo }}</td>
+        <td>{{ business.email }}</td>
+      </tr>
+    </table>
+  </div>
+  

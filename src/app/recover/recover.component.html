@@ -1,0 +1,23 @@
+<div class="container mt-5" *ngIf="!submitted">
+  <h2 class="text-center mb-4">Recupera la tua Password</h2>
+  <form (ngSubmit)="recover()" class="mt-4">
+    <div class="form-group">
+      <label for="inputValue">Email (utente) o Ragione Sociale (azienda)</label>
+      <input type="text" id="inputValue" [(ngModel)]="inputValue" name="inputValue" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary mt-3" [disabled]="loading">
+      <span *ngIf="!loading">Invia link di recupero</span>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      <span *ngIf="loading">Invio...</span>
+    </button>
+
+    <div *ngIf="errorMessage" class="alert alert-danger mt-3 text-center">
+      {{ errorMessage }}
+    </div>
+  </form>
+</div>
+
+<div *ngIf="submitted" class="alert alert-success mt-5 text-center">
+  ✅ Email inviata! Controlla la tua casella di posta per il link di reimpostazione della password.
+</div>

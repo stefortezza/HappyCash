@@ -1,0 +1,105 @@
+<div class="container mt-4">
+  <h2 class="text-center mb-4">{{ editMode ? 'Modifica Azienda' : 'Registra una nuova Azienda' }}</h2>
+
+  <form (ngSubmit)="saveBusiness()" #businessForm="ngForm">
+    <div class="row g-3">
+
+      <div class="col-md-6">
+        <label class="form-label">Ragione Sociale</label>
+        <input type="text" class="form-control" [(ngModel)]="business.ragioneSociale" name="ragioneSociale"
+          [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Nome Referente</label>
+        <input type="text" class="form-control" [(ngModel)]="business.nomeReferente" name="nomeReferente"
+          [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Cognome Referente</label>
+        <input type="text" class="form-control" [(ngModel)]="business.cognomeReferente" name="cognomeReferente"
+          [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Telefono</label>
+        <input type="text" class="form-control" [(ngModel)]="business.telefono" name="telefono" [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Email</label>
+        <input type="email" class="form-control" [(ngModel)]="business.email" name="email" [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Partita IVA</label>
+        <input type="text" class="form-control" [(ngModel)]="business.partitaIva" name="partitaIva"
+          [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Comune</label>
+        <input type="text" class="form-control" [(ngModel)]="business.comune" name="comune"
+          (ngModelChange)="searchAddress()" [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Categoria</label>
+        <input type="text" class="form-control" [(ngModel)]="business.categoria" name="categoria"
+          [required]="!editMode">
+      </div>
+
+      <div class="col-md-6 position-relative">
+        <label class="form-label">Indirizzo</label>
+        <input type="text" class="form-control" [(ngModel)]="business.indirizzo" name="indirizzo"
+          (ngModelChange)="searchAddress()" autocomplete="off" [required]="!editMode">
+        <ul *ngIf="suggestions.length > 0" class="list-group position-absolute w-100 shadow"
+          style="max-height: 200px; overflow-y: auto; z-index: 1000;">
+          <li *ngFor="let suggestion of suggestions" (click)="selectAddress(suggestion)"
+            class="list-group-item list-group-item-action">
+            {{ suggestion.place_name }}
+          </li>
+        </ul>
+      </div>
+
+      <div class="col-md-6" *ngIf="!editMode">
+        <label class="form-label">Username</label>
+        <input type="text" class="form-control" [(ngModel)]="business.username" name="username" [required]="!editMode">
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Nuova Password</label>
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="business.password"
+            name="password" [required]="!editMode">
+          <button class="btn btn-outline-secondary" type="button" (click)="showPassword = !showPassword">
+            <i class="fa" [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"></i>
+          </button>
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Conferma Password</label>
+        <div class="input-group">
+          <input [type]="showPassword ? 'text' : 'password'" class="form-control" [(ngModel)]="confirmPassword"
+            name="confirmPassword" [required]="!editMode">
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label">Servizio Offerto</label>
+        <input type="text" class="form-control" [(ngModel)]="business.servizioOfferto" name="servizioOfferto"
+          [required]="!editMode">
+      </div>
+    </div>
+
+    <div class="text-center mt-4">
+      <button type="submit" class="btn btn-primary" [disabled]="businessForm.invalid || suggestions.length > 0">
+        {{ editMode ? 'Aggiorna Azienda' : 'Registra Azienda' }}
+      </button>
+      <a class="btn btn-outline-dark" id="home" routerLink="/">🏠 Home</a>
+    </div>
+
+  </form>
+</div>

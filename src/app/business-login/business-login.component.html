@@ -1,0 +1,18 @@
+<div class="container mt-5">
+  <h2>Login Area Aziende</h2>
+  <form (ngSubmit)="login()">
+    <div class="mb-3">
+      <label for="username">Username</label>
+      <input [(ngModel)]="username" name="username" class="form-control" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="password">Password</label>
+      <input [(ngModel)]="password" name="password" type="password" class="form-control" required>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+
+    <div *ngIf="loginError" class="alert alert-danger mt-2">{{ loginError }}</div>
+  </form>
+</div>

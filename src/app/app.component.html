@@ -1,0 +1,12 @@
+<ng-container *ngIf="isLoggedIn(); else noNavbar">
+  <app-navbar></app-navbar>
+</ng-container>
+
+<ng-template #noNavbar></ng-template>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+
+<ng-container *ngIf="isLoggedIn(); else noNavbar">
+  <app-footer class="footer"></app-footer></ng-container>

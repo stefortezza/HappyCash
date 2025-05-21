@@ -1,0 +1,24 @@
+.container {
+  max-width: 700px;
+}
+
+input.form-control {
+  padding: 0.75rem;
+  font-size: 1rem;
+}
+
+.list-group-item {
+  cursor: pointer;
+  transition: background 0.2s ease;
+  &:hover {
+    background-color: #f8f9fa;
+  }
+}
+
+.z-3 {
+  z-index: 1055;
+}
+
+#home{
+  margin-left: 10px;
+}

@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <h3 class="text-center mb-4">Invia Notifica Broadcast</h3>
+
+  <div *ngIf="successMessage" class="alert alert-success text-center">{{ successMessage }}</div>
+  <div *ngIf="errorMessage" class="alert alert-danger text-center">{{ errorMessage }}</div>
+
+  <form (ngSubmit)="sendNotification()">
+    <div class="mb-3">
+      <label for="subject" class="form-label">Oggetto</label>
+      <input type="text" id="subject" class="form-control" [(ngModel)]="subject" name="subject" required>
+    </div>
+
+    <div class="mb-3">
+      <label for="message" class="form-label">Messaggio</label>
+      <textarea id="message" class="form-control" rows="6" [(ngModel)]="message" name="message" required></textarea>
+    </div>
+
+<div class="mb-3">
+  <label for="comuniDropdown" class="form-label">Comuni destinatari</label>
+  
+  <div class="dropdown">
+    <button class="form-control text-start dropdown-toggle" type="button" id="comuniDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+      {{ comuni.length > 0 ? comuni.join(', ') : 'Seleziona comuni...' }}
+    </button>
+    <ul class="dropdown-menu w-100 p-2" aria-labelledby="comuniDropdown" style="max-height: 200px; overflow-y: auto;">
+      <li *ngFor="let comune of allComuni">
+        <div class="form-check">
+          <input type="checkbox" class="form-check-input" [value]="comune" [checked]="comuni.includes(comune)" (change)="toggleComune(comune)">
+          <label class="form-check-label">{{ comune }}</label>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+
+    <button class="btn btn-primary" type="submit" [disabled]="loading || comuni.length === 0">
+      <span *ngIf="!loading">Invia</span>
+      <span *ngIf="loading" class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
+      <span *ngIf="loading">Invio...</span>
+    </button>
+    
+  </form>
+</div>

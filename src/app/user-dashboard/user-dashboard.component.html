@@ -1,0 +1,25 @@
+<div class="user-dashboard">
+  <!-- <h2 class="title text-center mt-3">La tua Fidelity Card</h2> -->
+  <div class="fidelity-wrapper">
+    <div class="fidelity-background">
+      <div class="fidelity-content" *ngIf="fidelityCard as card; else noCard">
+        <h2 class="card-name">{{ card.name }} {{ card.surname }}</h2>
+        <p class="card-code">Codice: {{ card.codiceUnivoco }}</p>
+      </div>
+      <ng-template #noCard>
+        <div class="no-card">Nessuna Fidelity Card disponibile.</div>
+      </ng-template>
+    </div>
+  </div>
+
+  <div class="user-actions">
+    <a routerLink="/profilo" class="action-box">
+      <i class="fa fa-user-circle"></i>
+      <span>I tuoi dati</span>
+    </a>
+    <a routerLink="/aziende" class="action-box">
+      <i class="fa fa-building"></i>
+      <span>Aziende convenzionate</span>
+    </a>
+  </div>
+</div>
