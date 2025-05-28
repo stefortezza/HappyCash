@@ -47,7 +47,6 @@ export class ProfiloComponent implements OnInit {
 
     if (!this.isBusinessLogged && storedUserToken) {
       const authData = this.authService.getCurrentUser();
-      // console.log('✅ authData ricevuto:', authData);
 
       const userId = Number(authData?.user?.sub);
       if (!isNaN(userId)) {
