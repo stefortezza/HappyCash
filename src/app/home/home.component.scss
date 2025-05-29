@@ -10,7 +10,7 @@
 body {
   background: linear-gradient(90deg, #ffffff 0%, #c9d6ff 100%);
   height: 100vh;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 .form-wrapper {
@@ -84,34 +84,79 @@ body {
 
 form {
   width: 100%;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
+h1 {
+  font-size: 26px;
+  margin-bottom: 18px;
+  color: #333;
+  text-align: center;
+}
+
+.form-group,
+.form-check {
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.form-label,
+label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: #555;
+}
+
+.form-control,
 input[type="text"],
 input[type="email"],
 input[type="password"],
 select {
-  height: 45px;
+  width: 100%;
   padding: 10px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-  width: 100%;
   font-size: 15px;
-}
-
-button[type="submit"] {
-  width: 100%;
-  height: 45px;
-  background-color: #7494ec;
-  border: none;
-  color: #fff;
-  font-weight: 600;
-  font-size: 16px;
+  border: 1px solid #ccc;
   border-radius: 6px;
-  transition: background-color 0.3s;
+  background-color: #f9f9f9;
+  transition: border-color 0.3s ease;
 }
 
-button[type="submit"]:hover {
-  background-color: #5a7bdd;
+.form-control:focus {
+  border-color: #7494ec;
+  outline: none;
+}
+
+select.form-control {
+  background-color: #f9f9f9;
+}
+
+button[type="submit"],
+.btn-primary {
+  width: 100%;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  background-color: #7494ec;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover,
+.btn-primary:hover {
+  background-color: #5a7ada;
+}
+
+.toggle-password {
+  position: absolute;
+  top: 38px;
+  right: 15px;
+  cursor: pointer;
+  color: #6c757d;
+  font-size: 18px;
 }
 
 .alert {
@@ -123,22 +168,34 @@ button[type="submit"]:hover {
 
 .text-end {
   font-size: 14px;
+  text-align: end;
 }
 
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 📱 Smartphone */
 @media (max-width: 576px) {
   .form-wrapper {
     flex-direction: column;
-    width: 90%;
-    height: auto;
+    width: 95%;
     top: 20px;
     left: 50%;
     transform: translateX(-50%);
     border-radius: 20px;
+    position: relative;
   }
 
   .left, .right {
     width: 100%;
-    border-radius: 20px 20px 0 0;
     padding: 20px;
   }
 
@@ -163,25 +220,69 @@ button[type="submit"]:hover {
     padding: 8px 20px;
   }
 
-  input[type="text"],
-  input[type="email"],
-  input[type="password"],
+  .form-control,
+  input,
   select {
     font-size: 14px;
-    height: 40px;
+    height: auto;
   }
 
-  button[type="submit"] {
+  .toggle-password {
+    top: 35px;
+    right: 10px;
+    font-size: 16px;
+  }
+
+  button[type="submit"],
+  .btn-primary {
     font-size: 14px;
-    height: 40px;
+    padding: 10px;
+  }
+
+  .alert {
+    font-size: 13px;
   }
 
   .text-end {
     text-align: center;
     margin-top: 10px;
   }
+}
+
+/* 📲 Tablet */
+@media (min-width: 577px) and (max-width: 991px) {
+  .form-wrapper {
+    flex-direction: column;
+    max-width: 90%;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .left, .right {
+    width: 100%;
+    padding: 25px;
+  }
+
+  .form-control,
+  input,
+  select {
+    padding: 11px;
+    font-size: 15px;
+  }
+
+  .toggle-password {
+    top: 36px;
+    right: 12px;
+  }
+
+  button[type="submit"],
+  .btn-primary {
+    padding: 11px;
+    font-size: 15px;
+  }
 
   .alert {
-    font-size: 13px;
+    font-size: 14px;
   }
 }
