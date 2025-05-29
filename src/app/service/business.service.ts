@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Business } from 'src/interfaces/business';
 
@@ -25,8 +25,9 @@ export class BusinessService {
   }
 
   createBusiness(business: Business): Observable<Business> {
-    return this.http.post<Business>(`${this.apiURL}/create`, business);
-  }
+  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
+  return this.http.post<Business>(`${this.apiURL}/create`, business, { headers });
+}
 
   joinBusiness(businessId: number, userId: number): Observable<any> {
     return this.http.post(`${this.apiURL}/join/${businessId}?userId=${userId}`, {}, { responseType: 'text' as 'json' });
