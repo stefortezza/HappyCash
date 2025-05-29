@@ -11,7 +11,7 @@ import { Register } from 'src/interfaces/register.interface';
 export class AuthService {
   
 
-  private apiURL = 'http://localhost:8080/auth';
+  private apiURL = 'http://api.happycash.it/auth';
   private token: string | null = null;
   private authSubject = new BehaviorSubject<AuthData | null>(null);
   user$ = this.authSubject.asObservable();

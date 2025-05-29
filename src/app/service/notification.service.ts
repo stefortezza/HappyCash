@@ -5,7 +5,7 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export class NotificationService {
-  private apiUrl = 'http://localhost:8080/api/notifications';
+  private apiUrl = 'http://api.happycash.it/api/notifications';
 
   constructor(private http: HttpClient) {}
 
@@ -22,6 +22,6 @@ export class NotificationService {
   }
 
   getComuniUtenti() {
-    return this.http.get<string[]>('http://localhost:8080/api/users/comuni');
+    return this.http.get<string[]>('http://api.happycash.it/api/users/comuni');
   }
 }

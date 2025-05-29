@@ -7,7 +7,7 @@ import { Business } from 'src/interfaces/business';
   providedIn: 'root'
 })
 export class BusinessService {
-  private apiURL = 'http://localhost:8080/api/businesses';
+  private apiURL = 'http://api.happycash.it/api/businesses';
 
   constructor(private http: HttpClient) {}
 

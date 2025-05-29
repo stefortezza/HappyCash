@@ -19,7 +19,7 @@ export class RecoverComponent {
     this.errorMessage = '';
     this.loading = true;
 
-    this.http.post('http://localhost:8080/auth/recover', { email: this.inputValue }, { responseType: 'text' })
+    this.http.post('http://api.happycash.it/auth/recover', { email: this.inputValue }, { responseType: 'text' })
       .subscribe({
         next: () => {
           this.submitted = true;
