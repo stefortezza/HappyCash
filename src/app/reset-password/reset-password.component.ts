@@ -34,7 +34,7 @@ export class ResetPasswordComponent implements OnInit {
       return;
     }
 
-    this.http.post('http://api.happycash.it/auth/reset-password', {
+    this.http.post('https://api.happycash.it/auth/reset-password', {
       token: this.token,
       newPassword: this.newPassword
     }, { responseType: 'text' }).subscribe({

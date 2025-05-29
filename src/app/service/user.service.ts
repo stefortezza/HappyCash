@@ -7,7 +7,7 @@ import { UserDetail } from 'src/interfaces/user-detail';
   providedIn: 'root'
 })
 export class UserService {
-  private apiURL = 'http://api.happycash.it/api/users';
+  private apiURL = 'https://api.happycash.it/api/users';
 
   constructor(private http: HttpClient) {}
 

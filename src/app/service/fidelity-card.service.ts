@@ -5,7 +5,7 @@ import { FidelityCard } from 'src/interfaces/fidelity-card';
 
 @Injectable({ providedIn: 'root' })
 export class FidelityCardService {
-  private apiURL = 'http://api.happycash.it/api/fidelitycards';
+  private apiURL = 'https://api.happycash.it/api/fidelitycards';
 
   constructor(private http: HttpClient) {}
 
