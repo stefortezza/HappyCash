@@ -125,3 +125,63 @@ button[type="submit"]:hover {
   font-size: 14px;
 }
 
+@media (max-width: 576px) {
+  .form-wrapper {
+    flex-direction: column;
+    width: 90%;
+    height: auto;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 20px;
+  }
+
+  .left, .right {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    padding: 20px;
+  }
+
+  .left {
+    border-radius: 20px 20px 0 0;
+  }
+
+  .right {
+    border-radius: 0 0 20px 20px;
+  }
+
+  .left p {
+    font-size: 22px;
+  }
+
+  .left a {
+    font-size: 13px;
+  }
+
+  .left input[type="button"] {
+    font-size: 14px;
+    padding: 8px 20px;
+  }
+
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  select {
+    font-size: 14px;
+    height: 40px;
+  }
+
+  button[type="submit"] {
+    font-size: 14px;
+    height: 40px;
+  }
+
+  .text-end {
+    text-align: center;
+    margin-top: 10px;
+  }
+
+  .alert {
+    font-size: 13px;
+  }
+}

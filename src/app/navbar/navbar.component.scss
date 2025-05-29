@@ -5,7 +5,7 @@
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05); // ombra dall'alto
+  box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.05);
   position: fixed;
   bottom: 0;
   left: 0;
@@ -84,11 +84,42 @@
 
     .nav-link {
       margin-bottom: 10px;
-  
     }
   }
 
-  #home{
+  @media (max-width: 576px) {
+    padding: 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+
+    .navbar-brand {
+      font-size: 1rem;
+      margin-bottom: 10px;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      margin: 5px 0;
+    }
+
+    .btn {
+      font-size: 0.85rem;
+      padding: 5px 10px;
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .dropdown-menu {
+      width: 100%;
+      text-align: center;
+    }
+
+    .dropdown-item {
+      font-size: 0.9rem;
+    }
+  }
+
+  #home {
     color: red;
   }
 }

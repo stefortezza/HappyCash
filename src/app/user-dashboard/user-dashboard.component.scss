@@ -1,3 +1,8 @@
+.user-dashboard {
+  padding: 1rem;
+}
+
+// Fidelity Card Wrapper
 .fidelity-wrapper {
   display: flex;
   justify-content: center;
@@ -23,27 +28,40 @@
   left: 30px;
   transform: translateY(-50%);
   color: white;
-  text-shadow: 1px 1px 4px rgba(0,0,0,0.8);
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+  max-width: 100%;
 
-  .card-name {  
+  .card-name {
     font-size: 1.8rem;
     font-weight: bold;
     margin-left: 250px;
     margin-top: 200px;
+    word-break: break-word;
   }
 
   .card-code {
     font-size: 1.7rem;
     margin-left: 260px;
     margin-top: 20px;
+    word-break: break-word;
   }
 }
 
+.no-card {
+  color: white;
+  text-align: center;
+  font-size: 1.2rem;
+  padding: 2rem;
+  text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.8);
+}
+
+// Azioni utente
 .user-actions {
   margin-top: 2.5rem;
   display: flex;
   justify-content: center;
-  gap: 2rem;
+  flex-wrap: wrap;
+  gap: 1.5rem;
 
   .action-box {
     display: flex;
@@ -52,10 +70,11 @@
     background: white;
     padding: 1rem 1.5rem;
     border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
     text-decoration: none;
     color: #333;
+    min-width: 140px;
 
     &:hover {
       transform: scale(1.05);
@@ -70,6 +89,65 @@
     span {
       font-size: 1rem;
       font-weight: 500;
+      text-align: center;
+    }
+  }
+}
+
+// 🔽 Tablet (≤768px)
+@media (max-width: 768px) {
+  .fidelity-background {
+    height: 300px;
+  }
+
+  .fidelity-content {
+    .card-name {
+      font-size: 1.5rem;
+      margin-left: 160px;
+      margin-top: 180px;
+    }
+
+    .card-code {
+      font-size: 1.4rem;
+      margin-left: 170px;
+      margin-top: 10px;
+    }
+  }
+
+  .user-actions {
+    gap: 1rem;
+  }
+}
+
+// 🔽 Smartphone (≤480px)
+@media (max-width: 576px) {
+  .fidelity-background {
+    height: 240px;
+  }
+
+  .fidelity-content {
+    left: 20px;
+
+    .card-name {
+      font-size: 1.2rem;
+      margin-left: 120px;
+      margin-top: 140px;
+    }
+
+    .card-code {
+      font-size: 1.1rem;
+      margin-left: 130px;
+      margin-top: 8px;
+    }
+  }
+
+  .user-actions {
+    flex-direction: column;
+    align-items: center;
+
+    .action-box {
+      width: 100%;
+      max-width: 280px;
     }
   }
 }

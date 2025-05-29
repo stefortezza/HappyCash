@@ -7,10 +7,13 @@
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.08);
   font-family: 'Poppins', sans-serif;
 
-  h2, h3 {
+  h2,
+  h3 {
     text-align: center;
     color: #343a40;
     margin-bottom: 25px;
+    font-weight: 600;
+    font-size: 1.6rem;
   }
 
   label {
@@ -18,6 +21,7 @@
     margin-bottom: 5px;
     color: #495057;
     display: block;
+    font-size: 1rem;
   }
 
   input.form-control {
@@ -26,7 +30,7 @@
     margin-bottom: 20px;
     border-radius: 8px;
     border: 1px solid #ced4da;
-    font-size: 16px;
+    font-size: 1rem;
     transition: all 0.2s ease;
 
     &:focus {
@@ -38,6 +42,7 @@
   .border.bg-light {
     background-color: #f8f9fa !important;
     border: 1px solid #dee2e6;
+    font-size: 1rem;
   }
 
   .alert {
@@ -71,7 +76,7 @@
     font-weight: 600;
     background-color: #7494ec;
     color: #fff;
-    font-size: 15px;
+    font-size: 0.95rem;
     transition: background-color 0.3s ease;
 
     &:hover {
@@ -107,9 +112,15 @@
     }
   }
 
+  // 📱 Responsive
   @media (max-width: 768px) {
     padding: 20px;
     margin: 15px;
+
+    h2,
+    h3 {
+      font-size: 1.4rem;
+    }
 
     .alert {
       flex-direction: column;
@@ -119,6 +130,37 @@
 
     button {
       width: 100%;
+    }
+
+    input.form-control {
+      font-size: 0.95rem;
+    }
+
+    .border.bg-light {
+      font-size: 0.95rem;
+    }
+  }
+
+  @media (max-width: 576px) {
+    h2,
+    h3 {
+      font-size: 1.2rem;
+    }
+
+    input.form-control {
+      font-size: 0.9rem;
+    }
+
+    .border.bg-light {
+      font-size: 0.9rem;
+    }
+
+    .alert {
+      font-size: 0.9rem;
+    }
+
+    button {
+      font-size: 0.9rem;
     }
   }
 }

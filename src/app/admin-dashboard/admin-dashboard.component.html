@@ -10,9 +10,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let user of users">
-        <td>{{ user.name }} {{ user.surname }}</td>
-        <td>{{ user.email }}</td>
-        <td>
+        <td data-label="Nome">{{ user.name }} {{ user.surname }}</td>
+        <td data-label="Email">{{ user.email }}</td>
+        <td data-label="Azioni">
           <button class="btn btn-warning btn-sm me-2" (click)="openEditUserModal(user)">Modifica</button>
           <button class="btn btn-success btn-sm me-2" (click)="approveUser(user.userId)" [disabled]="user.approved">Approva</button>
           <button class="btn btn-danger btn-sm" (click)="deleteUser(user.userId)">Elimina</button>
@@ -32,9 +32,9 @@
     </thead>
     <tbody>
       <tr *ngFor="let business of businesses">
-        <td>{{ business.ragioneSociale }}</td>
-        <td>{{ business.email }}</td>
-        <td>
+        <td data-label="Ragione Sociale">{{ business.ragioneSociale }}</td>
+        <td data-label="Email">{{ business.email }}</td>
+        <td data-label="Azioni">
           <button class="btn btn-info btn-sm me-2" (click)="visualizzaSconti(business.id!)">Visualizza Offerte</button>
           <button class="btn btn-warning btn-sm me-2" (click)="openEditBusinessModal(business)">Modifica</button>
           <button class="btn btn-danger btn-sm" (click)="deleteBusiness(business.id!)">Elimina</button>
@@ -107,10 +107,10 @@
           </thead>
           <tbody>
             <tr *ngFor="let sconto of selectedBusinessSconti">
-              <td>{{ sconto.dataOra | date:'dd/MM/yyyy HH:mm:ss' }}</td>
-              <td>{{ sconto.nome }}</td>
-              <td>{{ sconto.cognome }}</td>
-              <td>{{ sconto.offerta }}</td>
+              <td data-label="Data/Ora">{{ sconto.dataOra | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+              <td data-label="Nome">{{ sconto.nome }}</td>
+              <td data-label="Cognome">{{ sconto.cognome }}</td>
+              <td data-label="Offerta">{{ sconto.offerta }}</td>
             </tr>
           </tbody>
         </table>

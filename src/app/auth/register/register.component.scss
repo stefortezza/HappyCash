@@ -78,3 +78,56 @@ select.form-control {
     transform: translateY(0);
   }
 }
+/* 📱 Smartphone */
+@media (max-width: 576px) {
+  .register-form {
+    max-width: 100%;
+    padding: 0 15px;
+  }
+
+  .register-form h1 {
+    font-size: 22px;
+  }
+
+  .form-control {
+    padding: 10px;
+    font-size: 14px;
+  }
+
+  .btn-primary {
+    padding: 10px;
+    font-size: 15px;
+  }
+
+  .toggle-password {
+    top: 22px;
+    right: 10px;
+  }
+}
+
+/* 📲 Tablet */
+@media (min-width: 577px) and (max-width: 991px) {
+  .register-form {
+    max-width: 90%;
+    padding: 0 20px;
+  }
+
+  .register-form h1 {
+    font-size: 24px;
+  }
+
+  .form-control {
+    padding: 11px;
+    font-size: 15px;
+  }
+
+  .btn-primary {
+    padding: 11px;
+    font-size: 15px;
+  }
+
+  .toggle-password {
+    top: 24px;
+    right: 12px;
+  }
+}

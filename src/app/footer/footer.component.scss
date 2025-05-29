@@ -1,66 +1,84 @@
 .footer {
-    background: linear-gradient(135deg, #1f1c2c, #928dab); // sfumatura elegante
-    color: #f1f1f1;
-    padding: 2.5rem 1rem 1rem;
-    font-size: 0.95rem;
-  
-    h5, h6 {
-      color: #ffffff;
-      margin-bottom: 1rem;
-      font-weight: 600;
-    }
-  
-    .footer-logo {
-      font-size: 1.6rem;
-      font-weight: 700;
-      letter-spacing: 0.5px;
-    }
-  
-    a {
-      color: #ffd369;
-      text-decoration: none;
-      font-weight: 500;
-  
-      &:hover {
-        text-decoration: underline;
-        color: #fff;
-      }
-    }
-  
-    ul {
-      list-style: none;
-      padding-left: 0;
-      margin: 0;
-  
-      li {
-        margin-bottom: 0.6rem;
-      }
-    }
-  
-    i {
-      margin-right: 0.5rem;
-      color: #ffd369;
-    }
-  
-    hr {
-      border-color: rgba(255, 255, 255, 0.15);
-      margin-top: 2rem;
-      margin-bottom: 1rem;
-    }
-  
-    .small {
-      font-size: 0.85rem;
-      color: #d1d1d1;
-    }
-  
-    @media (max-width: 768px) {
-      .row {
-        text-align: center;
-      }
-  
-      .col-md-4 {
-        margin-bottom: 1.5rem;
-      }
+  background: linear-gradient(135deg, #1f1c2c, #928dab);
+  color: #f1f1f1;
+  padding: 2.5rem 1rem 1rem;
+  font-size: 0.95rem;
+
+  h5,
+  h6 {
+    color: #ffffff;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+
+  .footer-logo {
+    font-size: 1.6rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  a {
+    color: #ffd369;
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover {
+      text-decoration: underline;
+      color: #fff;
     }
   }
-  
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+    margin: 0;
+
+    li {
+      margin-bottom: 0.6rem;
+    }
+  }
+
+  i {
+    margin-right: 0.5rem;
+    color: #ffd369;
+  }
+
+  hr {
+    border-color: rgba(255, 255, 255, 0.15);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+  }
+
+  .small {
+    font-size: 0.85rem;
+    color: #d1d1d1;
+  }
+
+  // ✅ Responsive - 576px
+  @media (max-width: 576px) {
+    .row {
+      flex-direction: column;
+      text-align: center;
+    }
+
+    .col-md-4 {
+      width: 100%;
+      text-align: center !important;
+      margin-bottom: 1.5rem;
+    }
+
+    .footer-logo {
+      font-size: 1.4rem;
+    }
+
+    p,
+    li,
+    a {
+      font-size: 0.95rem;
+    }
+
+    .small {
+      font-size: 0.75rem;
+    }
+  }
+}

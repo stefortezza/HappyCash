@@ -1,26 +1,76 @@
 .aziende-wrapper {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+
+  h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+  }
+
   .toggle-buttons {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 1.5rem;
+
+    a,
     button {
       min-width: 120px;
-    }
-
-    a {
-      width: 100px;
-      margin-right: 10px;
+      padding: 0.5rem 1rem;
+      border-radius: 10px;
     }
 
     .active {
       font-weight: bold;
+      box-shadow: 0 0 0 2px #0d6efd33;
     }
   }
 
+  input.form-control {
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+  }
+
   .company-card {
+    border-radius: 12px;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease-in-out;
 
     &:hover {
       transform: scale(1.02);
     }
+
+    .card-body {
+      padding: 1.2rem;
+
+      h5.card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.8rem;
+      }
+
+      .card-text {
+        font-size: 0.95rem;
+
+        strong {
+          color: #343a40;
+        }
+      }
+    }
+  }
+
+  // Mappa
+  #map {
+    height: 600px;
+    width: 100%;
+    border: 1px solid #ccc;
+    border-radius: 12px;
   }
 
   .mapbox-wrapper {
@@ -28,14 +78,71 @@
     margin-top: 20px;
 
     .mapbox-map {
-      width: auto;
-      height: auto;
+      width: 100%;
+      height: 100%;
       border: 1px solid #ddd;
       border-radius: 8px;
     }
   }
 
-  #map + .mb-3 {
-    margin-top: 10px;
+  // Responsive
+  @media (max-width: 992px) {
+    .col-md-4 {
+      width: 50%;
+    }
+  }
+
+  @media (max-width: 768px) {
+    padding: 1rem;
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    .col-md-4 {
+      width: 100%;
+    }
+
+    .toggle-buttons {
+      flex-direction: column;
+      align-items: center;
+
+      a,
+      button {
+        width: 100%;
+      }
+    }
+
+    .company-card {
+      .card-body {
+        padding: 1rem;
+
+        .card-title {
+          font-size: 1.1rem;
+        }
+
+        .card-text {
+          font-size: 0.9rem;
+        }
+      }
+    }
+  }
+
+  @media (max-width: 480px) {
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    .card-title {
+      font-size: 1rem;
+    }
+
+    .card-text {
+      font-size: 0.85rem;
+    }
+
+    input.form-control {
+      font-size: 0.9rem;
+    }
   }
 }

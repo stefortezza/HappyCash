@@ -1,31 +1,102 @@
 .container {
-    max-width: 500px;
-    margin: 0 auto;
-    background: #f9f9f9;
-    padding: 2rem;
-    border-radius: 12px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  
-    h2 {
-      font-weight: bold;
-      margin-bottom: 1.5rem;
-      color: #333;
+  max-width: 500px;
+  margin: 2rem auto;
+  background: #f9f9f9;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+
+  h2 {
+    font-weight: bold;
+    margin-bottom: 1.5rem;
+    color: #333;
+    text-align: center;
+    font-size: 1.8rem;
+  }
+
+  .form-group {
+    margin-bottom: 1.2rem;
+
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      font-weight: 500;
+      color: #555;
     }
-  
-    .form-group {
-      margin-bottom: 1.2rem;
-    }
-  
-    .btn {
+
+    input {
       width: 100%;
-      font-weight: bold;
+      padding: 0.6rem 1rem;
       font-size: 1rem;
-    }
-  
-    .alert {
-      margin-top: 1.5rem;
-      font-size: 0.95rem;
-      padding: 0.75rem 1rem;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      transition: border-color 0.3s;
+
+      &:focus {
+        border-color: #007bff;
+        outline: none;
+      }
     }
   }
-  
+
+  .btn {
+    width: 100%;
+    padding: 0.6rem;
+    font-weight: bold;
+    font-size: 1rem;
+    border-radius: 8px;
+  }
+
+  .alert {
+    margin-top: 1.5rem;
+    font-size: 0.95rem;
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+  }
+}
+
+// ✅ Media Queries
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1.5rem;
+
+    h2 {
+      font-size: 1.5rem;
+    }
+
+    .btn {
+      font-size: 0.95rem;
+      padding: 0.5rem;
+    }
+  }
+}
+
+@media (max-width: 576px) {
+  .container {
+    margin: 1rem;
+    padding: 1.2rem;
+
+    h2 {
+      font-size: 1.3rem;
+    }
+
+    .form-group {
+      input {
+        font-size: 0.95rem;
+        padding: 0.5rem 0.9rem;
+      }
+    }
+
+    .btn {
+      font-size: 0.9rem;
+      padding: 0.5rem;
+    }
+
+    .alert {
+      font-size: 0.9rem;
+      padding: 0.6rem 0.9rem;
+    }
+  }
+}
