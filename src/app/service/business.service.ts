@@ -4,7 +4,7 @@ import { Observable } from 'rxjs';
 import { Business } from 'src/interfaces/business';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class BusinessService {
   private apiURL = 'https://api.happycash.it/api/businesses';
@@ -14,8 +14,7 @@ export class BusinessService {
   getBusinessesByUser(userId: number): Observable<Business[]> {
     return this.http.get<Business[]>(`${this.apiURL}/user/${userId}`);
   }
-  
-    
+
   getAllBusinesses(): Observable<Business[]> {
     return this.http.get<Business[]>(this.apiURL);
   }
@@ -25,14 +24,16 @@ export class BusinessService {
   }
 
   createBusiness(business: Business): Observable<Business> {
-  const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
-  return this.http.post<Business>(`${this.apiURL}/create`, business, { headers });
-}
+    return this.http.post<Business>(`${this.apiURL}/create`, business);
+  }
 
   joinBusiness(businessId: number, userId: number): Observable<any> {
-    return this.http.post(`${this.apiURL}/join/${businessId}?userId=${userId}`, {}, { responseType: 'text' as 'json' });
+    return this.http.post(
+      `${this.apiURL}/join/${businessId}?userId=${userId}`,
+      {},
+      { responseType: 'text' as 'json' }
+    );
   }
-  
 
   deleteBusiness(id: number): Observable<void> {
     return this.http.delete<void>(`${this.apiURL}/${id}`);
@@ -45,5 +46,4 @@ export class BusinessService {
   updateBusiness(id: number, business: Business): Observable<Business> {
     return this.http.put<Business>(`${this.apiURL}/${id}`, business);
   }
-  
 }

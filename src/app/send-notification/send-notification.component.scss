@@ -70,13 +70,40 @@
       padding: 0.5rem 1rem;
 
       .form-check-input {
-        margin-right: 0.5rem;
-        cursor: pointer;
+        width: 1.1rem;
+        height: 1.1rem;
+        border-radius: 4px;
+        border: 1px solid #adb5bd;
+        background-color: #fff;
+        transition: all 0.2s ease-in-out;
+        margin-top: 0.1rem;
+
+        &:checked {
+          background-color: #007bff;
+          border-color: #007bff;
+          background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M6.00039 10.8002L3.20039 8.0002L2.26606 8.93453L6.00039 12.6689L14.0004 4.66887L13.0661 3.73453L6.00039 10.8002Z'/%3E%3C/svg%3E");
+          background-size: 80% 80%;
+          background-position: center;
+          background-repeat: no-repeat;
+        }
+
+        &:focus {
+          box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+          outline: none;
+        }
+
+        &:hover {
+          cursor: pointer;
+          border-color: #007bff;
+        }
       }
 
       .form-check-label {
-        cursor: pointer;
+        font-size: 0.95rem;
+        color: #333;
+        margin-left: 0.35rem;
         user-select: none;
+        cursor: pointer;
       }
     }
   }
@@ -153,10 +180,19 @@
     .alert {
       font-size: 0.9rem;
     }
+
+    .form-check-input {
+      width: 1rem;
+      height: 1rem;
+    }
+
+    .form-check-label {
+      font-size: 0.9rem;
+    }
   }
 }
 
-// 🔽 Responsive per smartphone (max 480px)
+// 🔽 Responsive per smartphone (max 576px)
 @media (max-width: 576px) {
   .container {
     margin: 1rem;
@@ -184,6 +220,15 @@
 
     .form-check {
       padding: 0.4rem 0.8rem;
+
+      .form-check-input {
+        width: 0.95rem;
+        height: 0.95rem;
+      }
+
+      .form-check-label {
+        font-size: 0.85rem;
+      }
     }
 
     .alert {

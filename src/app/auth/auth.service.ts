@@ -29,18 +29,25 @@ export class AuthService {
     }
   }
 
-  login(user: { email: string; password: string }): Observable<boolean> {
-    return this.http.post<string>(`${this.apiURL}/login`, user, { responseType: 'text' as 'json' }).pipe(
-      tap((token: string) => {
-        this.token = token;
-        localStorage.setItem('user', token);
-        const authData = this.getCurrentUser();
-        this.authSubject.next(authData); 
-      }),
-      map(() => true),
-      catchError(() => of(false))
-    );
-  }
+login(user: { email: string; password: string }): Observable<boolean> {
+  return this.http.post<string>(`${this.apiURL}/login`, user, { responseType: 'text' as 'json' }).pipe(
+    tap((token: string) => {
+      this.token = token;
+
+      // ✅ Pulizia token aziendale in caso di login come utente/admin
+      localStorage.removeItem('businessToken');
+
+      // ✅ Salva nuovo token
+      localStorage.setItem('user', token);
+
+      const authData = this.getCurrentUser();
+      this.authSubject.next(authData); 
+    }),
+    map(() => true),
+    catchError(() => of(false))
+  );
+}
+
 
   logout(): void {
     this.token = null;
