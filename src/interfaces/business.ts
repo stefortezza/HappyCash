@@ -10,7 +10,7 @@ export interface Business {
   comune: string; 
   latitudine?: number;
   longitudine?: number;
-  username?: string;
+  username: string;
   password?: string;
   servizioOfferto?: string;
   categoria:string;

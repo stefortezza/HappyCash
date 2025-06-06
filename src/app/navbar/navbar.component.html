@@ -1,10 +1,13 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light custom-navbar">
   <div class="container-fluid">
-    <!-- Logo / Brand -->
-    <!-- Logo / Brand -->
     <a class="navbar-brand d-flex align-items-center" (click)="navigateByRole()">
       <img src="../../assets/img/logo-happy-cash-2x2x.png" alt="Logo" width="36" height="36" class="me-2" />
-      <span class="brand-text">HappyCash.it</span>
+      <span class="brand-text">
+        <span class="happy-text text-dark fw-bold">Happy</span>
+        <span id="cash" class="px-2 fw-bold text-success">Cash</span>
+      </span>
+
+
     </a>
 
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
@@ -32,7 +35,7 @@
         <li class="nav-item dropdown" *ngIf="isAuthenticated">
           <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-bs-toggle="dropdown"
             aria-expanded="false">
-            <img src="favicon.ico" alt="profilo" width="30" class="me-2" />
+            <img src="../../assets/img/logo-happy-cash-2x2x.png" alt="profilo" width="30" class="me-2" />
             Profilo
           </a>
           <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

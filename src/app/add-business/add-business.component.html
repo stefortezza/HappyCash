@@ -62,10 +62,10 @@
           </li>
         </ul>
       </div>
-
-      <div class="col-md-6" *ngIf="!editMode">
+      <div class="col-md-6">
         <label class="form-label">Username</label>
-        <input type="text" class="form-control" [(ngModel)]="business.username" name="username" [required]="!editMode">
+        <input type="text" class="form-control" [(ngModel)]="business.username" name="username" [readonly]="editMode"
+          required />
       </div>
 
       <div class="col-md-6">

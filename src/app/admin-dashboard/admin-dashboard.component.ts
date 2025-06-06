@@ -42,7 +42,7 @@ export class AdminDashboardComponent implements OnInit {
 
   onBusinessUpdated(): void {
     this.loadBusinesses();
-  
+
     setTimeout(() => {
       if (this.editBusinessModalInstance) {
         this.editBusinessModalInstance.hide();
@@ -51,20 +51,19 @@ export class AdminDashboardComponent implements OnInit {
       this.selectedBusiness = null;
     }, 300);
   }
-  
 
   onUserUpdated(): void {
     this.loadUsers();
-  
+
     setTimeout(() => {
       if (this.editUserModalInstance) {
         this.editUserModalInstance.hide();
         this.editUserModalInstance = null;
       }
       this.selectedUser = null;
-    }, 300); 
+    }, 300);
   }
-  
+
   loadUsers(): void {
     this.userService
       .getAllUsers()
@@ -119,7 +118,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   openEditUserModal(user: UserDetail): void {
-    this.selectedUser = null; // reset temporaneo per forzare il recreate
+    this.selectedUser = null; 
     setTimeout(() => {
       this.selectedUser = {
         userId: user.userId,
@@ -134,7 +133,7 @@ export class AdminDashboardComponent implements OnInit {
         marketing: user.marketing,
         password: '',
         role: user.role ?? 'USER',
-        comune: user.comune
+        comune: user.comune,
       };
 
       const modalEl = document.getElementById('editUserModal');
@@ -181,22 +180,40 @@ export class AdminDashboardComponent implements OnInit {
     this.router.navigate(['/sconti-admin', businessId]);
   }
 
-  onCloseUserModal(): void {
-    if (this.editUserModalInstance) {
-      this.editUserModalInstance.hide();
-      this.editUserModalInstance.dispose();
-      this.editUserModalInstance = null;
-    }
+onCloseUserModal(): void {
+  if (this.editUserModalInstance) {
+    this.editUserModalInstance.hide();
+    this.editUserModalInstance.dispose();
+    this.editUserModalInstance = null;
+  }
+  this.resetUserModalState();
+}
+
+onCloseBusinessModal(): void {
+  if (this.editBusinessModalInstance) {
+    this.editBusinessModalInstance.hide();
+    this.editBusinessModalInstance.dispose();
+    this.editBusinessModalInstance = null;
+  }
+  this.resetBusinessModalState();
+}
+
+
+  private removeModalBackdrops(): void {
+    const backdrops = document.querySelectorAll('.modal-backdrop');
+    backdrops.forEach((b) => b.remove());
+    document.body.classList.remove('modal-open');
+    document.body.style.removeProperty('overflow');
+    document.body.style.removeProperty('padding-right');
+  }
+
+  resetUserModalState(): void {
     this.selectedUser = null;
+    setTimeout(() => this.removeModalBackdrops(), 100);
   }
-  
-  onCloseBusinessModal(): void {
-    if (this.editBusinessModalInstance) {
-      this.editBusinessModalInstance.hide();
-      this.editBusinessModalInstance.dispose();
-      this.editBusinessModalInstance = null;
-    }
+
+  resetBusinessModalState(): void {
     this.selectedBusiness = null;
+    setTimeout(() => this.removeModalBackdrops(), 100);
   }
-  
 }

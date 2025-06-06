@@ -14,7 +14,8 @@
         <td data-label="Email">{{ user.email }}</td>
         <td data-label="Azioni">
           <button class="btn btn-warning btn-sm me-2" (click)="openEditUserModal(user)">Modifica</button>
-          <button class="btn btn-success btn-sm me-2" (click)="approveUser(user.userId)" [disabled]="user.approved">Approva</button>
+          <button class="btn btn-success btn-sm me-2" (click)="approveUser(user.userId)"
+            [disabled]="user.approved">Approva</button>
           <button class="btn btn-danger btn-sm" (click)="deleteUser(user.userId)">Elimina</button>
         </td>
       </tr>
@@ -50,14 +51,12 @@
     <div class="modal-content p-4">
       <div class="modal-header">
         <h5 class="modal-title">Modifica Utente</h5>
-        <button type="button" class="btn-close" (click)="onCloseUserModal()"></button>
+        <button type="button" class="btn-close" (click)="onCloseUserModal()" aria-label="Close"></button>
+
       </div>
       <div class="modal-body">
         <ng-container *ngIf="selectedUser">
-          <app-register
-            [editMode]="true"
-            [userToEdit]="selectedUser"
-            [isFromModal]="true"
+          <app-register [editMode]="true" [userToEdit]="selectedUser" [isFromModal]="true"
             (updateSuccess)="onUserUpdated()">
           </app-register>
         </ng-container>
@@ -72,21 +71,18 @@
     <div class="modal-content p-4">
       <div class="modal-header">
         <h5 class="modal-title">Modifica Azienda</h5>
-        <button type="button" class="btn-close" (click)="onCloseBusinessModal()"></button>
+        <button type="button" class="btn-close" (click)="onCloseBusinessModal()" aria-label="Close"></button>
+
       </div>
       <div class="modal-body">
         <ng-container *ngIf="selectedBusiness">
-          <app-add-business
-            [editMode]="true"
-            [businessToEdit]="selectedBusiness"
-            (updateSuccess)="onBusinessUpdated()">
+          <app-add-business [editMode]="true" [businessToEdit]="selectedBusiness" (updateSuccess)="onBusinessUpdated()">
           </app-add-business>
         </ng-container>
       </div>
     </div>
   </div>
 </div>
-
 <!-- MODALE VISUALIZZA SCONTI -->
 <div class="modal fade" id="scontiModal" tabindex="-1" aria-labelledby="scontiModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-lg modal-dialog-centered">
