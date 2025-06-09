@@ -1,4 +1,11 @@
-import { Component, Input, Output, EventEmitter, OnInit, OnDestroy } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnInit,
+  OnDestroy,
+} from '@angular/core';
 import { Business } from 'src/interfaces/business';
 import { BusinessService } from '../service/business.service';
 import { environment } from 'src/environments/environment';
@@ -8,10 +15,9 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-add-business',
   templateUrl: './add-business.component.html',
-  styleUrls: ['./add-business.component.scss']
+  styleUrls: ['./add-business.component.scss'],
 })
 export class AddBusinessComponent implements OnInit, OnDestroy {
-
   @Input() editMode = false;
   @Input() businessToEdit: Business | null = null;
   @Output() updateSuccess = new EventEmitter<void>();
@@ -22,6 +28,7 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
   suggestions: any[] = [];
   private searchSubject = new Subject<string>();
   private searchSub!: Subscription;
+  routerSubscription: any;
 
   constructor(
     private businessService: BusinessService,
@@ -35,11 +42,11 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
       this.confirmPassword = '';
     }
 
-    this.searchSub = this.searchSubject.pipe(
-      debounceTime(300)
-    ).subscribe((query) => {
-      this.fetchSuggestions(query);
-    });
+    this.searchSub = this.searchSubject
+      .pipe(debounceTime(300))
+      .subscribe((query) => {
+        this.fetchSuggestions(query);
+      });
   }
 
   ngOnDestroy(): void {
@@ -62,12 +69,15 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
       username: '',
       password: '',
       servizioOfferto: '',
-      categoria: ''
+      categoria: '',
     };
   }
 
   saveBusiness(): void {
-    if (this.business.password && this.business.password !== this.confirmPassword) {
+    if (
+      this.business.password &&
+      this.business.password !== this.confirmPassword
+    ) {
       alert('❌ Le password non coincidono!');
       return;
     }
@@ -75,14 +85,16 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
     if (this.editMode && this.business.id != null) {
       const updatedBusiness = { ...this.business };
       if (!updatedBusiness.password?.trim()) delete updatedBusiness.password;
-      this.businessService.updateBusiness(updatedBusiness.id!, updatedBusiness).subscribe({
-        next: () => {
-          alert('✅ Azienda aggiornata!');
-          this.updateSuccess.emit();
-          this.router.navigate(['/admin-dashboard']);
-        },
-        error: () => alert('❌ Errore aggiornamento azienda.')
-      });
+      this.businessService
+        .updateBusiness(updatedBusiness.id!, updatedBusiness)
+        .subscribe({
+          next: () => {
+            alert('✅ Azienda aggiornata!');
+            this.updateSuccess.emit();
+            this.router.navigate(['/admin-dashboard']);
+          },
+          error: () => alert('❌ Errore aggiornamento azienda.'),
+        });
     } else {
       this.businessService.createBusiness(this.business).subscribe({
         next: () => {
@@ -90,7 +102,7 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
           this.updateSuccess.emit();
           this.router.navigate(['/admin-dashboard']);
         },
-        error: () => alert('❌ Errore registrazione azienda.')
+        error: () => alert('❌ Errore registrazione azienda.'),
       });
     }
   }
@@ -108,11 +120,15 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
   }
 
   fetchSuggestions(query: string): void {
-    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(query)}.json?access_token=${environment.mapboxToken}&autocomplete=true&language=it`;
+    const url = `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(
+      query
+    )}.json?access_token=${
+      environment.mapboxToken
+    }&autocomplete=true&language=it`;
 
     fetch(url)
-      .then(res => res.json())
-      .then(data => {
+      .then((res) => res.json())
+      .then((data) => {
         this.suggestions = data.features || [];
       })
       .catch(() => {
@@ -128,7 +144,9 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
     this.business.longitudine = suggestion.geometry.coordinates[0];
 
     // Se esiste un comune più preciso lo aggiorno
-    const comuneContext = suggestion.context?.find((c: any) => c.id.startsWith('place'));
+    const comuneContext = suggestion.context?.find((c: any) =>
+      c.id.startsWith('place')
+    );
     if (comuneContext) {
       this.business.comune = comuneContext.text;
     }

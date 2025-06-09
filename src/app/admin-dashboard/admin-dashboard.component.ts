@@ -1,13 +1,13 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { UserService } from '../service/user.service';
 import { BusinessService } from '../service/business.service';
 import { UserDetail } from 'src/interfaces/user-detail';
 import { Business } from 'src/interfaces/business';
 import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import { of, Subscription } from 'rxjs';
 import { Register } from 'src/interfaces/register.interface';
 import { ScontoService } from '../service/sconto.service';
-import { Router } from '@angular/router';
+import { NavigationStart, Router } from '@angular/router';
 
 declare const bootstrap: any;
 
@@ -16,7 +16,7 @@ declare const bootstrap: any;
   templateUrl: './admin-dashboard.component.html',
   styleUrls: ['./admin-dashboard.component.scss'],
 })
-export class AdminDashboardComponent implements OnInit {
+export class AdminDashboardComponent implements OnInit, OnDestroy {
   selectedBusinessSconti: any[] = [];
   users: UserDetail[] = [];
   businesses: Business[] = [];
@@ -28,6 +28,8 @@ export class AdminDashboardComponent implements OnInit {
   private editBusinessModalInstance: any;
   private scontiModalInstance: any;
 
+  private routerSubscription!: Subscription;
+
   constructor(
     private userService: UserService,
     private businessService: BusinessService,
@@ -38,30 +40,51 @@ export class AdminDashboardComponent implements OnInit {
   ngOnInit(): void {
     this.loadUsers();
     this.loadBusinesses();
+
+    this.routerSubscription = this.router.events.subscribe((event) => {
+      if (event instanceof NavigationStart) {
+        this.closeAllModals();
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.routerSubscription?.unsubscribe();
+  }
+
+  closeAllModals(): void {
+    if (this.editUserModalInstance) {
+      this.editUserModalInstance.hide();
+      this.editUserModalInstance.dispose();
+      this.editUserModalInstance = null;
+    }
+
+    if (this.editBusinessModalInstance) {
+      this.editBusinessModalInstance.hide();
+      this.editBusinessModalInstance.dispose();
+      this.editBusinessModalInstance = null;
+    }
+
+    if (this.scontiModalInstance) {
+      this.scontiModalInstance.hide();
+      this.scontiModalInstance.dispose();
+      this.scontiModalInstance = null;
+    }
+
+    this.removeModalBackdrops();
+    this.selectedUser = null;
+    this.selectedBusiness = null;
+    this.selectedBusinessSconti = [];
   }
 
   onBusinessUpdated(): void {
     this.loadBusinesses();
-
-    setTimeout(() => {
-      if (this.editBusinessModalInstance) {
-        this.editBusinessModalInstance.hide();
-        this.editBusinessModalInstance = null;
-      }
-      this.selectedBusiness = null;
-    }, 300);
+    setTimeout(() => this.closeAllModals(), 300);
   }
 
   onUserUpdated(): void {
     this.loadUsers();
-
-    setTimeout(() => {
-      if (this.editUserModalInstance) {
-        this.editUserModalInstance.hide();
-        this.editUserModalInstance = null;
-      }
-      this.selectedUser = null;
-    }, 300);
+    setTimeout(() => this.closeAllModals(), 300);
   }
 
   loadUsers(): void {
@@ -118,7 +141,7 @@ export class AdminDashboardComponent implements OnInit {
   }
 
   openEditUserModal(user: UserDetail): void {
-    this.selectedUser = null; 
+    this.selectedUser = null;
     setTimeout(() => {
       this.selectedUser = {
         userId: user.userId,
@@ -180,24 +203,23 @@ export class AdminDashboardComponent implements OnInit {
     this.router.navigate(['/sconti-admin', businessId]);
   }
 
-onCloseUserModal(): void {
-  if (this.editUserModalInstance) {
-    this.editUserModalInstance.hide();
-    this.editUserModalInstance.dispose();
-    this.editUserModalInstance = null;
+  onCloseUserModal(): void {
+    if (this.editUserModalInstance) {
+      this.editUserModalInstance.hide();
+      this.editUserModalInstance.dispose();
+      this.editUserModalInstance = null;
+    }
+    this.resetUserModalState();
   }
-  this.resetUserModalState();
-}
 
-onCloseBusinessModal(): void {
-  if (this.editBusinessModalInstance) {
-    this.editBusinessModalInstance.hide();
-    this.editBusinessModalInstance.dispose();
-    this.editBusinessModalInstance = null;
+  onCloseBusinessModal(): void {
+    if (this.editBusinessModalInstance) {
+      this.editBusinessModalInstance.hide();
+      this.editBusinessModalInstance.dispose();
+      this.editBusinessModalInstance = null;
+    }
+    this.resetBusinessModalState();
   }
-  this.resetBusinessModalState();
-}
-
 
   private removeModalBackdrops(): void {
     const backdrops = document.querySelectorAll('.modal-backdrop');
