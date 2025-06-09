@@ -1,8 +1,8 @@
 @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap");
 
 // 🎨 Variabili colore brand
-$primary-color: #4CAF50; // Verde del logo
-$secondary-color: #FBC02D; // Giallo del logo
+$primary-color: #4caf50;
+$secondary-color: #fbc02d;
 $background-blur: linear-gradient(135deg, rgba(76, 175, 80, 0.3), rgba(251, 192, 45, 0.3));
 
 * {
@@ -46,6 +46,26 @@ body {
   padding: 30px;
   border-radius: 30px 0 0 30px;
   text-align: center;
+}
+
+.logo-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+
+  .logo-img {
+    width: 60px;
+    height: auto;
+    margin-right: 10px;
+  }
+
+  .logo-text {
+    font-size: 26px;
+    font-weight: 600;
+    color: #fff;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.3);
+  }
 }
 
 .left p {
@@ -135,10 +155,6 @@ select {
   outline: none;
 }
 
-select.form-control {
-  background-color: #f9f9f9;
-}
-
 button[type="submit"],
 .btn-primary {
   width: 100%;
@@ -156,15 +172,6 @@ button[type="submit"],
 button[type="submit"]:hover,
 .btn-primary:hover {
   background-color: darken($primary-color, 10%);
-}
-
-.toggle-password {
-  position: absolute;
-  top: 38px;
-  right: 15px;
-  cursor: pointer;
-  color: #6c757d;
-  font-size: 18px;
 }
 
 .alert {
@@ -202,7 +209,8 @@ button[type="submit"]:hover,
     position: relative;
   }
 
-  .left, .right {
+  .left,
+  .right {
     width: 100%;
     padding: 20px;
   }
@@ -213,6 +221,19 @@ button[type="submit"]:hover,
 
   .right {
     border-radius: 0 0 20px 20px;
+  }
+
+  .logo-wrapper {
+    flex-direction: column;
+
+    .logo-img {
+      width: 50px;
+      margin: 0 0 6px 0;
+    }
+
+    .logo-text {
+      font-size: 20px;
+    }
   }
 
   .left p {
@@ -232,13 +253,6 @@ button[type="submit"]:hover,
   input,
   select {
     font-size: 14px;
-    height: auto;
-  }
-
-  .toggle-password {
-    top: 35px;
-    right: 10px;
-    font-size: 16px;
   }
 
   button[type="submit"],
@@ -267,27 +281,32 @@ button[type="submit"]:hover,
     transform: translateX(-50%);
   }
 
-  .left, .right {
+  .left,
+  .right {
     width: 100%;
     padding: 25px;
+  }
+
+  .logo-wrapper {
+    .logo-img {
+      width: 55px;
+    }
+
+    .logo-text {
+      font-size: 24px;
+    }
   }
 
   .form-control,
   input,
   select {
-    padding: 11px;
     font-size: 15px;
-  }
-
-  .toggle-password {
-    top: 36px;
-    right: 12px;
   }
 
   button[type="submit"],
   .btn-primary {
-    padding: 11px;
     font-size: 15px;
+    padding: 11px;
   }
 
   .alert {

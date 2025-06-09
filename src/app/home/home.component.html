@@ -1,7 +1,13 @@
 <div class="form-wrapper">
   <div class="left">
     <div>
+      <div class="logo-wrapper">
+        <img src="../../assets/img/logo-happy-cash-2x2x.png" alt="Logo Happy Cash" class="logo-img" />
+        <span class="logo-text">Happy Cash</span>
+      </div>
+
       <p>Risparmia <br>e sii felice!</p>
+
       <a href="#" (click)="toggleView()">
         {{ isLoginView ? 'Non hai un account?' : 'Hai già un account?' }}
       </a>
@@ -12,14 +18,14 @@
   <div class="right">
     <div *ngIf="isLoginView; else registerView">
       <form (ngSubmit)="login()" #loginForm="ngForm">
-        <div class="mb-3 ">
+        <div class="mb-3">
           <label for="identifier" class="form-label">Email o Username</label>
-          <input type="text" class="form-control" id="identifier" name="identifier" [(ngModel)]="identifier" required>
+          <input type="text" class="form-control" id="identifier" name="identifier" [(ngModel)]="identifier" required />
         </div>
 
         <div class="mb-3">
           <label for="password" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required>
+          <input type="password" class="form-control" id="password" name="password" [(ngModel)]="password" required />
         </div>
 
         <button type="submit" class="btn btn-primary">Accedi</button>
