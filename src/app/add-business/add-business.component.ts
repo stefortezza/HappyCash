@@ -9,7 +9,7 @@ import {
 import { Business } from 'src/interfaces/business';
 import { BusinessService } from '../service/business.service';
 import { environment } from 'src/environments/environment';
-import { debounceTime, Subject, Subscription } from 'rxjs';
+import { debounceTime, Subject, Subscription, finalize } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Component({
@@ -20,12 +20,13 @@ import { Router } from '@angular/router';
 export class AddBusinessComponent implements OnInit, OnDestroy {
   @Input() editMode = false;
   @Input() businessToEdit: Business | null = null;
-  @Output() updateSuccess = new EventEmitter<void>();
+  @Output() updateSuccess = new EventEmitter<Business>();
 
   business: Business = this.getEmptyBusiness();
   confirmPassword: string = '';
   showPassword = false;
   suggestions: any[] = [];
+  isSaving: boolean = false;
   private searchSubject = new Subject<string>();
   private searchSub!: Subscription;
   routerSubscription: any;
@@ -82,28 +83,37 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
       return;
     }
 
+    this.isSaving = true;
+
     if (this.editMode && this.business.id != null) {
       const updatedBusiness = { ...this.business };
       if (!updatedBusiness.password?.trim()) delete updatedBusiness.password;
       this.businessService
         .updateBusiness(updatedBusiness.id!, updatedBusiness)
+        .pipe(finalize(() => (this.isSaving = false)))
         .subscribe({
           next: () => {
             alert('✅ Azienda aggiornata!');
-            this.updateSuccess.emit();
-            this.router.navigate(['/admin-dashboard']);
+            this.updateSuccess.emit(updatedBusiness); 
           },
-          error: () => alert('❌ Errore aggiornamento azienda.'),
+
+          error: () => {
+            alert('❌ Errore aggiornamento azienda.');
+          },
         });
     } else {
-      this.businessService.createBusiness(this.business).subscribe({
-        next: () => {
-          alert('✅ Azienda registrata!');
-          this.updateSuccess.emit();
-          this.router.navigate(['/admin-dashboard']);
-        },
-        error: () => alert('❌ Errore registrazione azienda.'),
-      });
+      this.businessService
+        .createBusiness(this.business)
+        .pipe(finalize(() => (this.isSaving = false)))
+        .subscribe({
+          next: () => {
+            alert('✅ Azienda registrata!');
+            this.updateSuccess.emit();
+          },
+          error: () => {
+            alert('❌ Errore registrazione azienda.');
+          },
+        });
     }
   }
 
@@ -143,7 +153,6 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
     this.business.latitudine = suggestion.geometry.coordinates[1];
     this.business.longitudine = suggestion.geometry.coordinates[0];
 
-    // Se esiste un comune più preciso lo aggiorno
     const comuneContext = suggestion.context?.find((c: any) =>
       c.id.startsWith('place')
     );
@@ -151,6 +160,6 @@ export class AddBusinessComponent implements OnInit, OnDestroy {
       this.business.comune = comuneContext.text;
     }
 
-    this.suggestions = []; // Puliamo suggerimenti dopo selezione
+    this.suggestions = [];
   }
 }

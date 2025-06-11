@@ -25,6 +25,7 @@ import { MappaAziendeComponent } from './mappa-aziende/mappa-aziende.component';
 import { BusinessLoginComponent } from './business-login/business-login.component';
 import { BusinessScontiComponent } from './business-sconti/business-sconti.component';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,7 @@ import { SendNotificationComponent } from './send-notification/send-notification
     BusinessScontiComponent,
     SendNotificationComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule],
+  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgbModule],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

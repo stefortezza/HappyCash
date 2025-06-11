@@ -13,7 +13,7 @@ export class RegisterComponent implements OnInit {
   @Input() isFromModal: boolean = false;
   @Input() editMode: boolean = false;
   @Input() userToEdit?: Register;
-  @Output() updateSuccess = new EventEmitter<void>();
+  @Output() updateSuccess = new EventEmitter<Register>();
 
   registerData: Register = {
     name: '',
@@ -73,7 +73,7 @@ export class RegisterComponent implements OnInit {
         this.authSrv.updateUser(user.userId!, user).subscribe({
           next: () => {
             alert('✅ Utente aggiornato con successo!');
-            this.updateSuccess.emit();
+            this.updateSuccess.emit(user);
           },
           error: (err) => {
             console.error('❌ Errore aggiornamento utente:', err);
