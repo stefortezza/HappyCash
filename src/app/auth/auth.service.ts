@@ -29,7 +29,7 @@ export class AuthService {
     }
   }
 
-login(user: { email: string; password: string }): Observable<boolean> {
+login(user: { email: string; password: string; recaptchaToken: string }): Observable<boolean> {
   return this.http.post<string>(`${this.apiURL}/login`, user, { responseType: 'text' as 'json' }).pipe(
     tap((token: string) => {
       this.token = token;
@@ -41,7 +41,7 @@ login(user: { email: string; password: string }): Observable<boolean> {
       localStorage.setItem('user', token);
 
       const authData = this.getCurrentUser();
-      this.authSubject.next(authData); 
+      this.authSubject.next(authData);
     }),
     map(() => true),
     catchError(() => of(false))
@@ -49,9 +49,10 @@ login(user: { email: string; password: string }): Observable<boolean> {
 }
 
 
+
   logout(): void {
     this.token = null;
-    localStorage.removeItem('user');
+    localStorage.removeItem('user');  
     this.authSubject.next(null);
   }
 

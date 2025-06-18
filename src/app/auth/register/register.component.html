@@ -6,22 +6,26 @@
   <form #signupForm="ngForm" (ngSubmit)="onSubmit(signupForm)">
     <div class="form-group">
       <label for="name">Nome</label>
-      <input type="text" id="name" name="name" class="form-control" [(ngModel)]="registerData.name" [required]="!editMode" />
+      <input type="text" id="name" name="name" class="form-control" [(ngModel)]="registerData.name"
+        [required]="!editMode" />
     </div>
 
     <div class="form-group">
       <label for="surname">Cognome</label>
-      <input type="text" id="surname" name="surname" class="form-control" [(ngModel)]="registerData.surname" [required]="!editMode" />
+      <input type="text" id="surname" name="surname" class="form-control" [(ngModel)]="registerData.surname"
+        [required]="!editMode" />
     </div>
 
     <div class="form-group">
       <label for="username">Username</label>
-      <input type="text" id="username" name="username" class="form-control" [(ngModel)]="registerData.username" [required]="!editMode" />
+      <input type="text" id="username" name="username" class="form-control" [(ngModel)]="registerData.username"
+        [required]="!editMode" />
     </div>
 
     <div class="form-group">
       <label for="email">Email</label>
-      <input type="email" id="email" name="email" class="form-control" [(ngModel)]="registerData.email" [required]="!editMode" />
+      <input type="email" id="email" name="email" class="form-control" [(ngModel)]="registerData.email"
+        [required]="!editMode" />
     </div>
 
     <!-- Password -->
@@ -35,19 +39,22 @@
     <!-- Conferma Password -->
     <div class="form-group position-relative">
       <label for="confirmPassword">Conferma Password</label>
-      <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" name="confirmPassword" class="form-control"
-        [(ngModel)]="confirmPassword" [required]="!editMode" />
-      <i class="fa fa-eye toggle-password" (click)="toggleConfirmPassword()" [class.fa-eye-slash]="showConfirmPassword"></i>
+      <input [type]="showConfirmPassword ? 'text' : 'password'" id="confirmPassword" name="confirmPassword"
+        class="form-control" [(ngModel)]="confirmPassword" [required]="!editMode" />
+      <i class="fa fa-eye toggle-password" (click)="toggleConfirmPassword()"
+        [class.fa-eye-slash]="showConfirmPassword"></i>
     </div>
 
     <div class="form-group">
       <label for="cellulare">Cellulare</label>
-      <input type="text" class="form-control" name="cellulare" [(ngModel)]="registerData.telefono" [required]="!editMode" />
+      <input type="text" class="form-control" name="cellulare" [(ngModel)]="registerData.telefono"
+        [required]="!editMode" />
     </div>
 
     <div class="form-group">
       <label for="codiceFiscale">Codice Fiscale</label>
-      <input type="text" class="form-control" name="codiceFiscale" [(ngModel)]="registerData.codiceFiscale" [required]="!editMode" />
+      <input type="text" class="form-control" name="codiceFiscale" [(ngModel)]="registerData.codiceFiscale"
+        [required]="!editMode" />
     </div>
 
     <div class="form-group">
@@ -57,21 +64,37 @@
 
     <!-- Consensi -->
     <div class="form-check">
-      <input type="checkbox" class="form-check-input" name="consensoPrivacy"
-        [(ngModel)]="registerData.consensoPrivacy" [required]="!editMode" />
-      <label class="form-check-label">Acconsento al trattamento dei dati personali (Privacy)</label>
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="consensoPrivacy"
+          [(ngModel)]="registerData.consensoPrivacy" [required]="!editMode" />
+        Acconsento al trattamento dei dati personali (Privacy)
+      </label>
+      <div class="mt-1">
+        <a href="assets/pdf/privacy.pdf" target="_blank">📄 Visualizza Informativa Privacy</a>
+      </div>
     </div>
 
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" name="terminiCondizioni"
-        [(ngModel)]="registerData.terminiCondizioni" [required]="!editMode" />
-      <label class="form-check-label">Accetto i termini e condizioni</label>
+    <!-- TERMINI E CONDIZIONI -->
+    <div class="form-check mt-3">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="terminiCondizioni"
+          [(ngModel)]="registerData.terminiCondizioni" [required]="!editMode" />
+        Accetto i termini e condizioni
+      </label>
+      <div class="mt-1">
+        <a href="assets/pdf/regolamento.pdf" target="_blank">📄 Visualizza Regolamento</a>
+      </div>
     </div>
 
-    <div class="form-check">
-      <input type="checkbox" class="form-check-input" name="marketing"
-        [(ngModel)]="registerData.marketing" />
-      <label class="form-check-label">Acconsento a ricevere comunicazioni marketing</label>
+    <!-- MARKETING -->
+    <div class="form-check mt-3">
+      <label class="form-check-label">
+        <input type="checkbox" class="form-check-input" name="marketing" [(ngModel)]="registerData.marketing" />
+        Acconsento a ricevere comunicazioni marketing
+      </label>
+      <div class="mt-1">
+        <a href="assets/pdf/modulo_diritti.pdf" target="_blank">📄 Visualizza Modulo Diritti</a>
+      </div>
     </div>
 
     <!-- Se l'admin sta registrando da modale -->

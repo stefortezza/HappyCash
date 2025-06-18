@@ -4,9 +4,10 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { TokenInterceptor } from './auth/token.interceptor';
+import { TokenInterceptor } from './auth/token.interceptor';  
 import { LoginComponent } from './auth/login/login.component';
 import { RegisterComponent } from './auth/register/register.component';
 import { NavbarComponent } from './navbar/navbar.component';
@@ -26,6 +27,7 @@ import { BusinessLoginComponent } from './business-login/business-login.componen
 import { BusinessScontiComponent } from './business-sconti/business-sconti.component';
 import { SendNotificationComponent } from './send-notification/send-notification.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 @NgModule({
   declarations: [
@@ -41,7 +43,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     AddBusinessComponent,
     HomeComponent,
     RecoverComponent,
-    ResetPasswordComponent,   
+    ResetPasswordComponent,
     ProfiloComponent,
     AziendeConvenzionateComponent,
     MappaAziendeComponent,
@@ -49,7 +51,15 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     BusinessScontiComponent,
     SendNotificationComponent,
   ],
-  imports: [BrowserModule, AppRoutingModule, HttpClientModule, FormsModule, NgbModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    HttpClientModule,
+    FormsModule,
+    NgbModule,
+    NgxCaptchaModule,
+    NgxPaginationModule
+  ],
   providers: [
     {
       provide: HTTP_INTERCEPTORS,

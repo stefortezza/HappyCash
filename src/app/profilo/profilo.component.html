@@ -33,7 +33,7 @@
       <div class="col-md-6">
         <label>Codice Fiscale</label>
         <input type="text" class="form-control" [(ngModel)]="userData.codiceFiscale" name="codiceFiscale"
-          [readonly]="!editMode" />
+           [readonly]="!isAdmin || !editMode"  />
       </div>
       <div class="col-md-6">
         <label>Nuova Password (opzionale)</label>

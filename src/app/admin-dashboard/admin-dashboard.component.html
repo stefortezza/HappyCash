@@ -1,47 +1,83 @@
-<div class="admin-dashboard container mt-4">
-  <h2>Gestione Utenti</h2>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Nome</th>
-        <th>Email</th>
-        <th>Azioni</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let user of users">
-        <td data-label="Nome">{{ user.name }} {{ user.surname }}</td>
-        <td data-label="Email">{{ user.email }}</td>
-        <td data-label="Azioni">
-          <button class="btn btn-warning btn-sm me-2" (click)="openEditUserModal(user, editUserModal)">Modifica</button>
-          <button class="btn btn-success btn-sm me-2" (click)="approveUser(user.userId)" [disabled]="user.approved">Approva</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteUser(user.userId)">Elimina</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+<div class="admin-dashboard container mt-5">
+  <h2 class="section-title">Gestione Utenti</h2>
+  <div class="search-wrapper mb-3">
+    <input type="text" class="form-control search-input" placeholder="Cerca utente..." [(ngModel)]="searchUser"
+      (ngModelChange)="filterUsers()">
+  </div>
 
-  <h2 class="mt-5">Gestione Aziende</h2>
-  <table class="table table-bordered table-striped">
-    <thead>
-      <tr>
-        <th>Ragione Sociale</th>
-        <th>Email</th>
-        <th>Azioni</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let business of businesses">
-        <td data-label="Ragione Sociale">{{ business.ragioneSociale }}</td>
-        <td data-label="Email">{{ business.email }}</td>
-        <td data-label="Azioni">
-          <button class="btn btn-info btn-sm me-2" (click)="openScontiModal(business, scontiModal)">Visualizza Offerte</button>
-          <button class="btn btn-warning btn-sm me-2" (click)="openEditBusinessModal(business, editBusinessModal)">Modifica</button>
-          <button class="btn btn-danger btn-sm" (click)="deleteBusiness(business.id!)">Elimina</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive card-style">
+    <table class="table table-hover">
+      <thead class="table-primary">
+        <tr>
+          <th>Nome</th>
+          <th>Email</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers | paginate: { id: 'user-pagination', itemsPerPage: itemsPerPage, currentPage: currentUserPage }">
+          <td data-label="Nome"><span>{{ user.name }} {{ user.surname }}</span></td>
+          <td data-label="Email"><span>{{ user.email }}</span></td>
+          <td data-label="Azioni">
+            <div class="d-flex flex-wrap gap-1">
+              <button class="btn btn-outline-primary btn-sm" (click)="openEditUserModal(user, editUserModal)">
+                <i class="bi bi-pencil"></i> Modifica
+              </button>
+              <button class="btn btn-outline-success btn-sm" (click)="approveUser(user.userId)" [disabled]="user.approved">
+                <i class="bi bi-check-circle"></i> Approva
+              </button>
+              <button class="btn btn-outline-danger btn-sm" (click)="deleteUser(user.userId)">
+                <i class="bi bi-trash"></i> Elimina
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls id="user-pagination" (pageChange)="onUserPageChange($event)" [responsive]="true"
+      previousLabel="Indietro" nextLabel="Avanti">
+    </pagination-controls>
+  </div>
+
+  <h2 class="section-title mt-5">Gestione Aziende</h2>
+  <div class="search-wrapper mb-3">
+    <input type="text" class="form-control search-input" placeholder="Cerca azienda..." [(ngModel)]="searchBusiness"
+      (ngModelChange)="filterBusinesses()">
+  </div>
+
+  <div class="table-responsive card-style">
+    <table class="table table-hover">
+      <thead class="table-secondary">
+        <tr>
+          <th>Ragione Sociale</th>
+          <th>Email</th>
+          <th>Azioni</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let business of filteredBusinesses | paginate: { id: 'business-pagination', itemsPerPage: itemsPerPage, currentPage: currentBusinessPage }">
+          <td data-label="Ragione Sociale"><span>{{ business.ragioneSociale }}</span></td>
+          <td data-label="Email"><span>{{ business.email }}</span></td>
+          <td data-label="Azioni">
+            <div class="d-flex flex-wrap gap-1">
+              <button class="btn btn-outline-info btn-sm" (click)="openScontiModal(business, scontiModal)">
+                <i class="bi bi-gift"></i> Offerte
+              </button>
+              <button class="btn btn-outline-primary btn-sm" (click)="openEditBusinessModal(business, editBusinessModal)">
+                <i class="bi bi-pencil"></i> Modifica
+              </button>
+              <button class="btn btn-outline-danger btn-sm" (click)="deleteBusiness(business.id!)">
+                <i class="bi bi-trash"></i> Elimina
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <pagination-controls id="business-pagination" (pageChange)="onBusinessPageChange($event)" [responsive]="true"
+      previousLabel="Indietro" nextLabel="Avanti">
+    </pagination-controls>
+  </div>
 </div>
 
 <!-- MODALE MODIFICA UTENTE -->
@@ -52,10 +88,7 @@
   </div>
   <div class="modal-body">
     <ng-container *ngIf="selectedUser">
-      <app-register
-        [editMode]="true"
-        [userToEdit]="selectedUser"
-        [isFromModal]="true"
+      <app-register [editMode]="true" [userToEdit]="selectedUser" [isFromModal]="true"
         (updateSuccess)="onUserUpdated($event)">
       </app-register>
     </ng-container>
@@ -70,9 +103,7 @@
   </div>
   <div class="modal-body">
     <ng-container *ngIf="selectedBusiness">
-      <app-add-business
-        [editMode]="true"
-        [businessToEdit]="selectedBusiness"
+      <app-add-business [editMode]="true" [businessToEdit]="selectedBusiness"
         (updateSuccess)="onBusinessUpdated($event)">
       </app-add-business>
     </ng-container>
@@ -85,27 +116,50 @@
     <h5 class="modal-title">Sconti Applicati da {{ selectedBusiness?.ragioneSociale }}</h5>
     <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
   </div>
-  <div class="modal-body">
-    <div *ngIf="selectedBusinessSconti.length > 0; else noSconti">
-      <table class="table table-bordered">
-        <thead>
+
+  <div class="modal-body container-sconti-admin">
+    <div class="row g-3 mb-3 align-items-end">
+      <div class="col-md-4">
+        <label for="dataInizio">Data Inizio:</label>
+        <input type="date" id="dataInizio" class="form-control" [(ngModel)]="dataInizio" name="dataInizio" />
+      </div>
+      <div class="col-md-4">
+        <label for="dataFine">Data Fine:</label>
+        <input type="date" id="dataFine" class="form-control" [(ngModel)]="dataFine" name="dataFine" />
+      </div>
+      <div class="col-md-4 d-flex flex-wrap gap-2 justify-content-end">
+        <button class="btn btn-success" (click)="exportToExcel()" [disabled]="!filteredSconti?.length">
+          📥 Esporta in Excel
+        </button>
+        <button class="btn btn-primary" (click)="printSconti()" [disabled]="!filteredSconti?.length">
+          🖨️ Stampa
+        </button>
+      </div>
+    </div>
+
+    <div *ngIf="filteredSconti && filteredSconti.length > 0; else noSconti" id="print-section-admin">
+      <table class="table table-bordered table-striped">
+        <thead class="table-light">
           <tr>
-            <th>Data/Ora</th>
             <th>Nome</th>
             <th>Cognome</th>
+            <th>Data/Ora</th>
+            <th>Codice Fidelity</th>
             <th>Offerta</th>
           </tr>
         </thead>
         <tbody>
-          <tr *ngFor="let sconto of selectedBusinessSconti">
-            <td>{{ sconto.dataOra | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+          <tr *ngFor="let sconto of filteredSconti">
             <td>{{ sconto.nome }}</td>
             <td>{{ sconto.cognome }}</td>
+            <td>{{ sconto.dataOra | date:'dd/MM/yyyy HH:mm:ss' }}</td>
+            <td>{{ sconto.codiceFidelity }}</td>
             <td>{{ sconto.offerta }}</td>
           </tr>
         </tbody>
       </table>
     </div>
+
     <ng-template #noSconti>
       <p class="text-center text-muted">Nessuno sconto applicato da questa azienda.</p>
     </ng-template>
